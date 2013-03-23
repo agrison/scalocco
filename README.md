@@ -32,4 +32,4 @@ it into a `docs` folder.
 
 The visual style was borrowed from the .Net implementation of Docco: [Nocco](https://github.com/dontangg/nocco)
 
-You can see the result of running Scalocco on its own source code here: [http://grison.me/scalocco/scalocco.scala.html](http://grison.me/scalocco/scalocco.scala.html)
+You can see the result of running Scalocco on its own source code here: [http://grison.me/scalocco/source](http://grison.me/scalocco/source)
