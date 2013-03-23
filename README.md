@@ -1,3 +1,13 @@
+     ______     ______     ______     __         ______     ______     ______     ______    
+    /\  ___\   /\  ___\   /\  __ \   /\ \       /\  __ \   /\  ___\   /\  ___\   /\  __ \   
+    \ \___  \  \ \ \____  \ \  __ \  \ \ \____  \ \ \/\ \  \ \ \____  \ \ \____  \ \ \/\ \  
+     \/\_____\  \ \_____\  \ \_\ \_\  \ \_____\  \ \_____\  \ \_____\  \ \_____\  \ \_____\ 
+      \/_____/   \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_____/   \/_____/   \/_____/
+    
+                             Scala implementation of Docco
+                             -----------------------------
+             Produces HTML pages that displays your comments alongside your code.
+
 **Scalocco** is a really quick-and-dirty, literate-programming-style documentation
 generator. It is a Scala port of [Docco](http://jashkenas.github.com/docco/),
 which was written by [Jeremy Ashkenas](https://github.com/jashkenas) in
@@ -7,8 +17,7 @@ Scalocco produces HTML that displays your comments alongside your code.
 Comments are passed through
 [Markdown](http://daringfireball.net/projects/markdown/syntax), and code is
 highlighted using [google-code-prettify](http://code.google.com/p/google-code-prettify/)
-syntax highlighting. This page is the result of running Scalocco against its
-own source file.
+syntax highlighting.
 
 Currently, to build Scalocco, you'll need **maven** and **scala**. The project
 depends on [scala-mustache](https://github.com/vspy/scala-mustache) and
