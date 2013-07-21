@@ -413,7 +413,9 @@ case class MustacheParseException(line:Int, msg:String)
                   value:Any
                   , childrenString:String
                   , render:(String)=>String
-    ):Any =
+    ):Any = {
+      type F1[t] = Function1[String, t]
+      type F2[t] = Function2[String, Function1[String,String], t] 
       value match {
         case Some(someValue) => eval(someValue, childrenString, render)
 
@@ -424,34 +426,37 @@ case class MustacheParseException(line:Int, msg:String)
 
         case m:MapLike[_, _, _] => m
 
-        case f:Function1[String, _] =>
+        case f:F1[_] =>
           eval(f(childrenString), childrenString, render)
 
-        case f:Function2[String, Function1[String,String], _] =>
+        case f:F2[_] =>
           eval(f(childrenString, render), childrenString, render)
 
         case other => other
       }
+    }
 
     @tailrec
     private def findInContext(stack:List[Any], key:String):Any =
       stack.headOption match {
         case None => None
-        case Some(head) =>
-          (head match {
-            case null => None
-            case m : MapLike[String,_,_] =>
-              m.get(key) match {
-                case Some(v) => v
-                case None => None
-              }
-            case m:Mustache =>
-              m.globals.get(key) match {
-                case Some(v) => v
-                case None => None
-              }
-            case any => reflection(any, key)
-          }) match {
+        case Some(head) => {
+          type MapLikeString[a, b] = MapLike[String, a, b]
+          head match {
+              case null => None
+              case m:MapLikeString[_,_] =>
+                m.get(key) match {
+                  case Some(v) => v
+                  case None => None
+                }
+              case m:Mustache =>
+                m.globals.get(key) match {
+                  case Some(v) => v
+                  case None => None
+                }
+              case any => reflection(any, key)
+            }
+          } match {
             case None => findInContext(stack.tail, key)
             case x => x
           }

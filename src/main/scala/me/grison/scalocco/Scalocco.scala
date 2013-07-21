@@ -42,7 +42,7 @@ import io.Source
 import java.util.UUID
 
 //#### Import for processing Markdown ####
-import com.petebevin.markdown.MarkdownProcessor;
+import org.markdown4j.Markdown4jProcessor
 
 //### Section class###
 // The `Section` class is just an object having two fields to represent
@@ -55,7 +55,7 @@ case class Section(doc: String, code: String)
 class Markdown {
     class MarkdownableString(s: String) {
         // *Markdownify* the given text.
-        def markdown = new MarkdownProcessor().markdown(s)
+        def markdown = new Markdown4jProcessor().process(s)
         // *Markdownify* the given text but removes the `<p/>` tags from the result
         def mkdNoP = markdown.replaceAll("</?p>", "").trim()
         // Creates a *Mustache* object whose template is the given String
@@ -78,7 +78,7 @@ object Scalocco extends Markdown {
          * Abstract class representing a Scaladoc item.
          * @param tpl the Mustache template to be used to render the Scaladoc.
          */
-        abstract case class DocItem(tpl: Mustache) {
+        abstract class DocItem(tpl: Mustache) {
             // Render this Scaladoc item
             def render = tpl.render(this)
         }
@@ -240,9 +240,16 @@ object Scalocco extends Markdown {
     def generateDoc(path: String, destPath: String) = {
         val files = scalaFiles(path)
         sources = files.toList
-        if (!new File(destPath).exists())
-            new File(destPath).mkdirs()
-        files.foreach(documentFile(_, path, destPath))
+
+        // if the given path is just a file, split the base part of it
+        val pathFile = new File(path)
+        val basePath = if (pathFile.isDirectory) path else pathFile.getParent
+
+        // create destination path, if it doesn't exist
+        val dest = new File(destPath)
+        if (!dest.exists()) dest.mkdirs()
+
+        files.foreach(documentFile(_, basePath, destPath))
     }
 
     /**
@@ -250,6 +257,11 @@ object Scalocco extends Markdown {
      * @param args the arguments to the program
      */
     def main(args: Array[String]) {
-        generateDoc(args(0), Option(args(1)).getOrElse("./docs/"))
+        if(args.length == 0) println("Need an argument: path with sources")
+        else {
+            val path = args(0)
+            val destPath = if (args.length > 1) args(1) else "./docs/"
+            generateDoc(path, destPath)
+        }
     }
 }
