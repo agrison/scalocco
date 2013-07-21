@@ -21,7 +21,7 @@
 // ...will generate linked HTML documentation for the named source files, saving
 // it into a `docs` folder.
 //
-// The [source for Scalocco](http://github.com/agrison/scalacco) is available on GitHub (and also,
+// The [source for Scalocco](http://github.com/agrison/scalocco) is available on GitHub (and also,
 // on the right of this very webpage) and released under the MIT license.
 /****************************************************************************************
  ______     ______     ______     __         ______     ______     ______     ______    
