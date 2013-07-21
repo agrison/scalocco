@@ -240,9 +240,16 @@ object Scalocco extends Markdown {
     def generateDoc(path: String, destPath: String) = {
         val files = scalaFiles(path)
         sources = files.toList
-        if (!new File(destPath).exists())
-            new File(destPath).mkdirs()
-        files.foreach(documentFile(_, path, destPath))
+
+        // if the given path is just a file, split the base part of it
+        val pathFile = new File(path)
+        val basePath = if (pathFile.isDirectory) path else pathFile.getParent
+
+        // create destination path, if it doesn't exist
+        val dest = new File(destPath)
+        if (!dest.exists()) dest.mkdirs()
+
+        files.foreach(documentFile(_, basePath, destPath))
     }
 
     /**
@@ -250,6 +257,11 @@ object Scalocco extends Markdown {
      * @param args the arguments to the program
      */
     def main(args: Array[String]) {
-        generateDoc(args(0), Option(args(1)).getOrElse("./docs/"))
+        if(args.length == 0) println("Need an argument: path with sources")
+        else {
+            val path = args(0)
+            val destPath = if (args.length > 1) args(1) else "./docs/"
+            generateDoc(path, destPath)
+        }
     }
 }
