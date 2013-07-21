@@ -78,7 +78,7 @@ object Scalocco extends Markdown {
          * Abstract class representing a Scaladoc item.
          * @param tpl the Mustache template to be used to render the Scaladoc.
          */
-        abstract case class DocItem(tpl: Mustache) {
+        abstract class DocItem(tpl: Mustache) {
             // Render this Scaladoc item
             def render = tpl.render(this)
         }

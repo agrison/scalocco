@@ -12,9 +12,11 @@ startYear := Some(2013)
 
 version := "1.1.0-SNAPSHOT"
 
-scalaVersion := "2.9.3"
+scalaVersion := "2.10.1"
 
 scalacOptions ++= Seq(
   "-unchecked"
 , "-deprecation"
+, "-feature"
+, "-language:implicitConversions"
 )
