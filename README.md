@@ -19,13 +19,12 @@ Comments are passed through
 highlighted using [google-code-prettify](http://code.google.com/p/google-code-prettify/)
 syntax highlighting.
 
-Currently, to build Scalocco, you'll need **maven** and **scala**. The project
-depends on [scala-mustache](https://github.com/vspy/scala-mustache) and
-[Markdown4j](https://code.google.com/p/markdown4j/)
+Currently, to build Scalocco, you'll need [sbt](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) and **scala**. The project
+depends on [scala-mustache](https://github.com/vspy/scala-mustache) and [Markdown4j](https://code.google.com/p/markdown4j/)
 
-To use Scalocco, build it using `maven` (no `sbt` for now) then run it from the command-line:
+To run Scalocco, just use sbt:
 
-     java -jar scalocco.jar /path/to/scala/files
+     sbt "run /path/to/scala/files"
 
 ...will generate linked HTML documentation for the named source files, saving
 it into a `docs` folder.
