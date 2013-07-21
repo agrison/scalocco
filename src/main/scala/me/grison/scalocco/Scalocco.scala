@@ -42,7 +42,7 @@ import io.Source
 import java.util.UUID
 
 //#### Import for processing Markdown ####
-import com.petebevin.markdown.MarkdownProcessor;
+import org.markdown4j.Markdown4jProcessor
 
 //### Section class###
 // The `Section` class is just an object having two fields to represent
@@ -55,7 +55,7 @@ case class Section(doc: String, code: String)
 class Markdown {
     class MarkdownableString(s: String) {
         // *Markdownify* the given text.
-        def markdown = new MarkdownProcessor().markdown(s)
+        def markdown = new Markdown4jProcessor().process(s)
         // *Markdownify* the given text but removes the `<p/>` tags from the result
         def mkdNoP = markdown.replaceAll("</?p>", "").trim()
         // Creates a *Mustache* object whose template is the given String
